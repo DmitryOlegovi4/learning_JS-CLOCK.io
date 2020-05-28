@@ -151,7 +151,7 @@ window.onmousemove = function (event) {
         if (i===length-1){return}
     }
     setInterval(change, 0)
-    setTimeout(change, 0)
+    // setTimeout(change, 0)
 
 
     // rootElem.children().each(function() {
