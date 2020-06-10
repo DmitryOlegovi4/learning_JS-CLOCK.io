@@ -1,31 +1,31 @@
 let width = window.innerWidth;
 let height = window.innerHeight;
-
-let rootElem = $('.root');
-
+let rootElem = document.querySelector('.root');
 
 /* ТЕКСТ вокруг циферблата */
 // let text = "С каждой секундой у нас всё больше прошлого и меньше будущего. Цените своё настоящее!   "
-let text = "Человек находит время для всего, что он действительно хочет!  ".split('')
+let textArr = "Человек находит время для всего, что он действительно хочет!  "
+let text = textArr.split('')
 for (let symbol of text){
-    let symbolContainer = $('<div>');
-    symbolContainer.text(symbol);
-    symbolContainer.addClass('symbol');
-    rootElem.append(symbolContainer)
+    let symbolContainer = document.createElement('div');
+    symbolContainer.innerText = symbol;
+    symbolContainer.classList.add('symbol');
+    rootElem.appendChild(symbolContainer);
 }
 let step=0;
 function drawCircleText(){
-    let length = $('.symbol').length;
+    let symbol = document.querySelectorAll('.symbol');
+    let length = symbol.length;
     let alpha = Math.PI * 2 / length;
     step=step+alpha;
     if (step>=Math.PI * 2){step=0}
-    $('.symbol').each(function(index){
-        let theta = alpha * index-0.5*Math.PI+step;
+    for(let i=0; i<symbol.length; i++){
+        let theta = alpha * i-0.5*Math.PI+step;
         let pointX  =  Math.round(Math.cos( theta) * 110);
         let pointY  = Math.round(Math.sin( theta ) * 110 );
-        $(this).css('left', pointX + width/2-8 + 'px');
-        $(this).css('top', pointY  + height/2-8  + 'px');
-    });
+        symbol[i].style.left = `${pointX + width/2-4}px`;
+        symbol[i].style.top = `${pointY + height/2-8}px`;
+    }
 
     setTimeout(drawCircleText, 1000);
 }
@@ -35,54 +35,58 @@ drawCircleText();
 /* ЦИФЕРБЛАТ */
 let numberArr = ['XII','I', 'II','III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI' ];
 for (let number of numberArr){
-    let numberContainer = $('<div>');
-    numberContainer.text(number);
-    numberContainer.addClass('number');
-    rootElem.append(numberContainer)
+    let numberContainer = document.createElement('div');
+    numberContainer.innerText = number;
+    numberContainer.classList.add('number');
+    rootElem.appendChild(numberContainer);
 }
 function drawCircle(){
-    let length = $('.number').length;
+    let number = document.querySelectorAll('.number');
+    let length = number.length;
     let alpha = Math.PI * 2 / length;
-    $('.number').each(function(index){
-        let theta = alpha * index-0.5*Math.PI;
+    for(let i=0; i<number.length; i++){
+        let theta = alpha * i-0.5*Math.PI;
         let pointX  =  Math.round(Math.cos( theta ) * 80);
         let pointY  = Math.round(Math.sin( theta ) * 80 );
-        $(this).css('left', pointX + width/2-8 + 'px');
-        $(this).css('top', pointY  + height/2-8  + 'px');
-    });
+        number[i].style.left = `${pointX + width/2-8}px`;
+        number[i].style.top = `${pointY + height/2-8}px`;
+    }
 }
 drawCircle();
 
 
 /* СТРЕЛКИ */
 for (let i=0; i<=7; i++){
-    let minHandContainer = $('<div>');
-    minHandContainer.addClass('minHand');
-    rootElem.append(minHandContainer)
+    let minHandContainer = document.createElement('div');
+    minHandContainer.classList.add('minHand');
+    rootElem.appendChild(minHandContainer)
 }
 function drawHandsMin(){
+    let minHand = document.querySelectorAll('.minHand');
     let date = new Date;
     let minutes = date.getMinutes();
     let alpha = Math.PI * 2 / 60*minutes-0.5*Math.PI;
     let x =width/2-2.5;
     let y =height/2-2.5;
     let radius = 0;
-    $('.minHand').each(function(){
+    for(let elem of minHand){
         let pointX  =  Math.round(Math.cos( alpha )*radius );
         let pointY  = Math.round(Math.sin( alpha )*radius );
         radius+=7;
-        $(this).css('left', pointX + x + 'px');
-        $(this).css('top', pointY  + y  + 'px');
-    });
+        elem.style.left = `${pointX +x}px`;
+        elem.style.top = `${pointY + y}px`;
+    }
     setTimeout(drawHandsMin, 15000);
 }
 drawHandsMin()
+
 for (let i=0; i<=4; i++){
-    let hourHandContainer = $('<div>');
-    hourHandContainer.addClass('hourHand');
-    rootElem.append(hourHandContainer)
+    let hourHandContainer = document.createElement('div');
+    hourHandContainer.classList.add('hourHand');
+    rootElem.appendChild(hourHandContainer)
 }
 function drawHandsHour(){
+    let hourHand = document.querySelectorAll('.hourHand');
     let date = new Date;
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -100,51 +104,55 @@ function drawHandsHour(){
     let x =width/2-4;
     let y =height/2-4;
     let radius = 0;
-    $('.hourHand').each(function(){
+    for(let elem of hourHand){
         let pointX  =  Math.round(Math.cos( alpha )*radius );
         let pointY  = Math.round(Math.sin( alpha )*radius );
         radius+=9;
-        $(this).css('left', pointX + x + 'px');
-        $(this).css('top', pointY  + y  + 'px');
-    });
+        elem.style.left = `${pointX +x}px`;
+        elem.style.top = `${pointY + y}px`;
+    }
     setTimeout(drawHandsHour, 60000);
 }
 drawHandsHour()
+
 for (let i=0; i<=7; i++){
-    let secHandContainer = $('<div>');
-    secHandContainer.addClass('secHand');
-    rootElem.append(secHandContainer)
+    let secHandContainer = document.createElement('div');
+    secHandContainer.classList.add('secHand');
+    rootElem.appendChild(secHandContainer)
 }
 function drawHandsSec(){
+    let secHand = document.querySelectorAll('.secHand');
     let date = new Date;
     let seconds = date.getSeconds();
     let alpha = Math.PI * 2 / 60*seconds-0.5*Math.PI;
     let x =width/2-2;
     let y =height/2-2;
     let radius = 0;
-    $('.secHand').each(function(){
+    for(let elem of secHand){
         let pointX  =  Math.round(Math.cos( alpha )*radius );
         let pointY  = Math.round(Math.sin( alpha )*radius );
         radius+=8;
-        $(this).css('left', pointX + x + 'px');
-        $(this).css('top', pointY  + y  + 'px');
-    });
+        elem.style.left = `${pointX +x}px`;
+        elem.style.top = `${pointY + y}px`;
+    }
     setTimeout(drawHandsSec, 1000);
 }
 drawHandsSec()
 
+
+//движение часиков
+let child = rootElem.children;
 window.onmousemove = function (event) {
     let myX = event.clientX - width/2;
     let myY = event.clientY-height/2+110;
-    let length = rootElem.children().length;
     let i = 0;
     function change() {
-        rootElem.children()[i].style.marginLeft = myX + "px";
-        rootElem.children()[i].style.marginTop = myY + "px";
-        i=i+1
-        if (i===length-1){return}
+        child[i].style.marginLeft = `${myX}px`;
+        child[i].style.marginTop = `${myY}px`;
+        i=i+1;
+        if (i===child.length){clearInterval(interval)}
+
     }
-    setInterval(change, 0)
+    let interval = setInterval(change, 20)
 }
 
-// комментарий

@@ -25,19 +25,19 @@ body {
   background-color: red;
   width: 4px;
   height: 4px;
-  border-radius: 50%;
+  border-radius: 100%;
   z-index: 5; }
 
 .minHand {
   background-color: white;
   width: 6px;
   height: 6px;
-  border-radius: 50%;
+  border-radius: 100%;
   z-index: 4; }
 
 .hourHand {
   background-color: white;
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border-radius: 100%;
   z-index: 3; }
